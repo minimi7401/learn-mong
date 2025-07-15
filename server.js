@@ -147,13 +147,9 @@ app.get("/users/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
-        if (!ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid user ID format" });
-        }
-
         const result = await collection.findOne(
             { _id: new ObjectId(id) },
-            { projection: { name: 1 } }
+            { projection: { name: 1 , _id : 1} }
         );
 
         if (!result) {
