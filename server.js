@@ -143,31 +143,44 @@ app.delete("/users/:id", async(req, res) => {
 
 
 // 미션 ! 
-app.get ("/users/:id", async(req, res) => {
+app.get("/users/:id", async (req, res) => {
     try {
-        const { id } = req.params; 
-        const result = await collection.findOne({
-            _id : new ObjectId(id),
+        const { id } = req.params;
+
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid user ID format" });
+        }
+
+        const result = await collection.findOne(
+            { _id: new ObjectId(id) },
+            { projection: { name: 1 } }
+        );
+
+        if (!result) {
+            return res.status(404).json({
+                message: "User not found",
+                id,
+            });
+        }
+
+        // name 값을 명시적으로 꺼냄
+        const { name } = result;
+
+        res.status(200).json({
+            message: "User Info",
+            id,
+            name,
         });
 
-        if (result.name) {
-            res.status(200).json({
-                message: "User Info~~~ ", 
-                id, 
-                name 
-            })
-            return 
-        }
-        
     } catch (error) {
-        console.log(`get id error ~~ `)
-        // 응답 
+        console.error("get id error ~~", error);
         res.status(500).json({
-            message: "Error get id😁users", 
-            error: error.message, 
-        })
+            message: "Error get id😁users",
+            error: error.message,
+        });
     }
-})
+});
+
 
 
 const connectDB = async () => {
