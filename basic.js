@@ -54,13 +54,17 @@ const user = {
     role: "admin", // user, guest 유저의 역할 
 }; 
 
+
 // admin 페이지에 접근할 수 있는지 여부  
 const isAccessAdminPage = user.isLoggedIn && user.role === "admin"; 
-if (isAccessAdminPage) {
-    console.log("💚관리자페이지에 접근하실 수 있습니다.")
-} else {
-    console.log("❤관리자페이지에 접그하실 수 없습니다")
-}
+// if (isAccessAdminPage) {
+//     console.log("💚관리자페이지에 접근하실 수 있습니다.")
+// } else {
+//     console.log("🥩관리자페이지에 접근하실 수 없습니다")
+// }
+
+
+console.log(isAccessAdminPage ? "🎄접근가능" : "🎃접근불가");
 
 // 로그인된 사용자 이거나 롤이 admin 인 사용자이면 true 반환  
 const isAccessUserPage = user.isLoggedIn || user.role === "admin"; 
@@ -74,3 +78,25 @@ const double = (num = 1) => {
 console.log(double(5));
 console.log("double1", double());
 console.log("double2", double(2));
+
+const score = 50; 
+const result = score >=60 ? "합격" : "불합격"
+console.log("🚀 ~ result:", result); 
+
+console.log("🚀 ~ animals:", animals)
+const copyArr = [...animals, "value"]; 
+console.log("🚀 ~ copyArr:", copyArr)
+
+const todoItem = {
+
+};
+
+const newItem = {
+    ...todoItem, 
+    isComplete: false, 
+    content: "MongoDB 공부하기"
+}; 
+console.log("🚀 ~ newItem:", newItem)
+console.log("🚀 ~ todoItem:", todoItem);
+
+
